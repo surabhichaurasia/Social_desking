@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import React , {Component} from 'react';
+import {BrowserRouter,Route, Switch} from 'react-router-dom';
 import './App.css';
+import Login from './components/login'
+import Booking from './components/booking'
+import CreateBooking from './components/createBooking'
 
-function App() {
+let email = ""
+class App extends Component {
+  
+  render() {
+    document.addEventListener('login', function(data) {
+      // this.setState({
+      //   email: data.detail
+      // })
+      console.log(data.detail)
+      email = data.detail
+    })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+     <Switch>
+        <Route exact path='/login' component={Login}></Route>
+        <Route exact path='/createbooking' component={CreateBooking}></Route>
+        <Route path='/booking' render={
+          (props) => (
+            <Booking {...props} email={email} />)}
+        />
+
+      </Switch>
+   </BrowserRouter>
   );
+}
 }
 
 export default App;
