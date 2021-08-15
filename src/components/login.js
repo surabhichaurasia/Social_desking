@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import  { Link } from 'react-router-dom'
+import logo from "./logo.png";
+import '../styles/login.css';
 
 class Login extends Component {
 
@@ -31,9 +32,10 @@ class Login extends Component {
       <div className="row container">
         <div className="card login-card">
           <div className="col">
-            <h2>
+          <img src={logo} className="logo" alt="logo" />
+            <h3>
              Social Desking
-            </h2>
+            </h3>
             <h6>In the light of our "NEW REALITY" induced by the Corona pandemic new ways to work and save costs arises.</h6>
           </div>
           <div className="col">

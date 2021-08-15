@@ -1,0 +1,22 @@
+.booking-grid {
+  display: flex;
+}
+
+.booking-data {
+  background-color: aqua;
+  flex-grow: 0.4;
+  margin: 30px;
+}
+
+.booking-layout-card {
+  width: 500px;
+}
+
+.booking-btn {
+  background-color: #9816f3;
+  color: #fff;
+  padding: 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}

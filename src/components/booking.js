@@ -6,15 +6,18 @@ class Booking extends Component {
         details: {}
         }
     componentDidMount() {
-        console.log(this.props)
-        axios.get(`http://mocki.io/v1/cea45500-c034-4734-b984-a7ce57d748b9`)
+        axios.get(`http://localhost:8080/user/${this.props.email}`)
         .then(response => {
-        const user = response.data;
-        this.setState ({
-            details: user
+            console.log(response)
+            const user = response.data
+          
+            this.setState ({
+                ...this.state,
+                details: user
+            });
+            console.log(this.state.details)
         });
-        console.log(this.state.details)
-        })
+        
     }
 
     render() {
