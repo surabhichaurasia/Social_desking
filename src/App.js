@@ -6,6 +6,7 @@ import Booking from './components/booking/booking'
 import CreateBooking from './components/booking/createBooking'
 
 let email = ""
+let userId = ""
 class App extends Component {
   
   render() {
@@ -17,11 +18,19 @@ class App extends Component {
       email = data.detail
     })
 
+    document.addEventListener('createBooking', function(data) {
+      console.log(data.detail)
+      userId = data.detail
+    })
+
   return (
     <BrowserRouter>
      <Switch>
         <Route exact path='/login' component={Login}></Route>
-        <Route exact path='/createbooking' component={CreateBooking}></Route>
+        <Route exact path='/createbooking' render = {
+          (props) => (
+            <CreateBooking {...props} userId = {userId}/>)}
+        />
         <Route path='/booking' render={
           (props) => (
             <Booking {...props} email={email} />)}
