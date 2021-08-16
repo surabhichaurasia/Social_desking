@@ -2,14 +2,15 @@ import React , {Component} from 'react';
 import Layout from '../layout/layout';
 import '../../styles/createBooking.css';
 import axios from 'axios';
-class CreateBooking extends Component {
-    constructor() {
-        super();
+class EditBooking extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
           "date": "",
           "buildingId": "",
           "floorId": "",
-          "desk": ""
+          "desk": "",
+          "bookingId": ""
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -20,6 +21,7 @@ class CreateBooking extends Component {
     componentDidMount() {
         window.$("select").formSelect();
         console.log(this.props);
+        console.log(this.props.match.params.bookingId);
     }
 
     handleChange(e) {
@@ -32,44 +34,40 @@ class CreateBooking extends Component {
         this.setState({
           buildingId: building,
           floorId: floor,
-          date: date
+          date: date,
+          bookingId: this.props.match.params.bookingId
         });
       }
 
       handleDesk(e) {
         if (this.state.desk !== e)
         this.setState({desk: e})
-        // console.log("e ", e);
-      }
-
-      async handleBooking(e) {
-        e.preventDefault();
-        await axios({
-          method: "post",
-          url: "http://grads-coding-group-21.uc.r.appspot.com/addNewBooking",
-          data: {
-            userId: this.props.userId,
-            floorId: this.state.floorId,
-            buildingId: this.state.buildingId,
-            date: this.state.date,
-            location: this.state.desk,
-          },
-        }).then((res) => {
-          console.log(res);
-        });
-        axios
-          .get(
-            `http://grads-coding-group-21.uc.r.appspot.com/user/${this.props.email}`
-          )
-          .then((response) => {
-            console.log(response);
-            const user = response.data;
-            console.log(user ,"hello");
-            this.props.history.push("/booking", { user });
-          });
+        console.log("e ", e);
       }
 
       
+      
+      async handleBooking(e) {
+        let data = {
+          "userId": this.props.userId, 
+              "floorId": this.state.floorId, 
+              "buildingId": this.state.buildingId, 
+              "date": this.state.date, 
+              "location": this.state.desk,
+              "bookingID": this.state.bookingId
+        }
+        console.log(data)
+        e.preventDefault();
+        await axios({
+          method: 'put', 
+          url: 'http://grads-coding-group-21.uc.r.appspot.com/updateBooking', 
+          data: data
+        })
+        .then(res => {
+          console.log(res);
+        })
+        this.props.history.push('/booking');
+      }
     
 
     render() {
@@ -80,11 +78,11 @@ class CreateBooking extends Component {
                     <div className="col booking-data">
                         <div className="row">
                             <label for="date">Choose Date</label>
-                            <input id="date" type="date" onChange={this.handleChange} class="validate"/>
+                            <input id="date" type="date" value={this.props.match.params.date} onChange={this.handleChange} class="validate"/>
                         </div>
                         <div className="row">
                             <label>Choose Your Building</label>
-                            <select id="building" onChange={this.handleChange}>
+                            <select id="building" onChange={this.handleChange} value={this.props.match.params.buildingId}>
                                     <option value="" disabled selected>
                                     Choose your option
                                     </option>
@@ -95,7 +93,7 @@ class CreateBooking extends Component {
                         </div>
                         <div className="row">
                         <label>Choose Your Floor</label>
-                            <select id="floor" onChange={this.handleChange}>
+                            <select id="floor" onChange={this.handleChange} value={this.props.match.params.floorId}>
                                     <option value="" disabled selected>
                                     Choose your option
                                     </option>
@@ -105,11 +103,12 @@ class CreateBooking extends Component {
                                     <option value="4">Floor 4</option>
                             </select>
                         </div>
+                        <div>{this.props.match.params.bookingID}</div>
                     </div>
                     <div className="col">
                         <div className="row">
                             <div>
-                                <Layout {...this.state} userId = {this.props.userId} handleDesk = {this.handleDesk}/>
+                                <Layout {...this.state} userId = {this.props.userId} handleDesk = {this.handleDesk} location={this.props.match.params.location}/>
                             </div>
                         </div>
                         <button className="booking-btn" onClick={(e) => this.handleBooking(e)}>Submit</button>
@@ -121,4 +120,4 @@ class CreateBooking extends Component {
     }
 }
 
-export default CreateBooking
+export default EditBooking

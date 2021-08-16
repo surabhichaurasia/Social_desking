@@ -17,7 +17,7 @@ class Header extends React.Component {
                 <h5>Hello</h5>
               </li>
               <li className="user-name">
-               <h5>user</h5>
+               <h5>{this.props.username}</h5>
               </li>
             </ul>
           </div>

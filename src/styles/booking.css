@@ -1,0 +1,25 @@
+.booking-card {
+    width: 200px;
+    height: 180px;
+    background-color: cadetblue;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.edit-btn {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: darkblue;
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: darkred;
+    border: none;
+    cursor: pointer;
+}

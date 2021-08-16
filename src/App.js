@@ -4,6 +4,7 @@ import './App.css';
 import Login from './components/login/login'
 import Booking from './components/booking/booking'
 import CreateBooking from './components/booking/createBooking'
+import EditBooking from './components/booking/editBooking'
 
 let email = ""
 let userId = ""
@@ -23,10 +24,16 @@ class App extends Component {
       userId = data.detail
     })
 
+    document.addEventListener('editBooking', function(data) {
+      console.log(data.detail)
+      userId = data.detail
+    })
+
   return (
     <BrowserRouter>
      <Switch>
         <Route exact path='/login' component={Login}></Route>
+        
         <Route exact path='/createbooking' render = {
           (props) => (
             <CreateBooking {...props} userId = {userId}/>)}
@@ -35,6 +42,10 @@ class App extends Component {
           (props) => (
             <Booking {...props} email={email} />)}
         />
+        <Route exact path='/editbooking/:bookingId/:floorId/:buildingId/:date/:location' 
+            render = {
+          (props) => (
+            <EditBooking {...props} userId = {userId}/>)}/>
 
       </Switch>
    </BrowserRouter>

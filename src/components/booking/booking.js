@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Header from '../header/header';
+import '../../styles/booking.css';
 
 class Booking extends Component {
     state = {
         details: {}
         }
     componentDidMount() {
-        axios.get(`http://localhost:8080/user/${this.props.email}`)
+        axios.get(`http://grads-coding-group-21.uc.r.appspot.com/user/${this.props.email}`)
         .then(response => {
             console.log(response)
             const user = response.data
@@ -22,25 +23,41 @@ class Booking extends Component {
     }
 
     handleCreateBooking(e) {
-        // console.log(e);
-        // console.log(this);
         const customEvent = new CustomEvent('createBooking', {detail: this.state.details.userID} );
         document.dispatchEvent(customEvent);
         this.props.history.push('createBooking');
+    }
+
+    handleEditBooking(booking) {
+        const customEvent = new CustomEvent('editBooking', {detail: this.state.details.userID} );
+        document.dispatchEvent(customEvent);
+        console.log(booking)
+        this.props.history.push(`editbooking/${booking.bookingID}/${booking.floorId}/${booking.buildingId}/${booking.bDate}/${booking.location}`)
+    }
+
+    handleDeleteBooking(bookingId) {
+        axios({
+          method: 'delete', 
+          url: `http://grads-coding-group-21.uc.r.appspot.com/deleteBooking/${bookingId}`
+        })
+        .then(res => {
+          console.log(res);
+        })
+        this.props.history.push('/booking');
     }
 
     render() {
         return (
             <div className="booking-container">
                 <div>
-                    <Header />
+                    <Header username={this.state.details.name}/>
                 </div>
                 <button className = "local-btn" onClick = {(e) => this.handleCreateBooking(e)}>Create New Booking</button>
                 <div className="row">
                 {this.state.details.bookings ? this.state.details.bookings.map(currbooking => {           
                     return(
                     <div className="col">
-                        <div className="card">
+                        <div className="card booking-card">
                             Date: {currbooking.bDate}
                             <br/>
                             Booking ID: {currbooking.bookingID}
@@ -51,8 +68,8 @@ class Booking extends Component {
                             <br/>
                             Location: {currbooking.location}
                             <br/>
-                            <button>Edit</button>
-                            <button>Delete</button>
+                            <button className="edit-btn" onClick = {(e) => this.handleEditBooking(currbooking)}>Edit</button>
+                            <button className="delete-btn" onClick = {(e) => this.handleDeleteBooking(currbooking.bookingID)}>Delete</button>
                         </div>
                     </div>
                     );

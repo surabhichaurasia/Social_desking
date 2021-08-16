@@ -9,7 +9,12 @@ export class Layout extends Component {
         active: null
     }
     componentDidMount() {
-        axios.get('http://localhost:8080/getCurrentFloorBooking', {
+        console.log(this.props.userId)
+        this.setState({
+            ...this.state,
+            active: this.props.location
+        })
+        axios.get('http://grads-coding-group-21.uc.r.appspot.com/getCurrentFloorBooking', {
             params: {
                 userId: this.props.userId, 
                 floorId: 1, 
@@ -42,7 +47,7 @@ export class Layout extends Component {
     }
 
     componentDidUpdate() {
-        axios.get('http://localhost:8080/getCurrentFloorBooking', {
+        axios.get('http://grads-coding-group-21.uc.r.appspot.com/getCurrentFloorBooking', {
             params: {
                 userId: this.props.userId, 
                 floorId: this.props.floorId, 
