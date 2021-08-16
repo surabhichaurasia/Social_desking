@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Header from '../header/header';
 
 class Booking extends Component {
     state = {
@@ -23,6 +24,9 @@ class Booking extends Component {
     render() {
         return (
             <div className="booking-container">
+                <div>
+                    <Header />
+                </div>
                 <div className="row">
                 {this.state.details.currentBooking ? this.state.details.currentBooking.map(bookings => {           
                     return(

@@ -1,9 +1,9 @@
 import React , {Component} from 'react';
 import {BrowserRouter,Route, Switch} from 'react-router-dom';
 import './App.css';
-import Login from './components/login'
-import Booking from './components/booking'
-import CreateBooking from './components/createBooking'
+import Login from './components/login/login'
+import Booking from './components/booking/booking'
+import CreateBooking from './components/booking/createBooking'
 
 let email = ""
 class App extends Component {

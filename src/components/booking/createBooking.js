@@ -1,6 +1,8 @@
 import React , {Component} from 'react';
-import Layout from './layout';
-import '../styles/createBooking.css';
+import Layout from '../layout/layout';
+import '../../styles/createBooking.css';
+import Header from '../header/header';
+
 class CreateBooking extends Component {
     constructor() {
         super();
@@ -44,7 +46,9 @@ class CreateBooking extends Component {
 
     render() {
         return (
-            <div className="card createbooking-container">
+          <div className="createbooking-container">
+            <Header/>
+            <div className="card">
                 <div className="row booking-grid">
                     <div className="col booking-data">
                         <div className="row">
@@ -82,6 +86,7 @@ class CreateBooking extends Component {
                         <button className="booking-btn" onClick={(e) => this.handleBooking(e)}>Submit</button>
                     </div>
                 </div>
+            </div>
             </div>
         )
     }

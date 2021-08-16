@@ -1,0 +1,20 @@
+.header-logo {
+    height: 60px;
+    width: 70px;
+  pointer-events: none;
+  margin-left: 30px;
+
+}
+
+.navbar {
+    background-color: rgb(243, 116, 158);
+}
+
+.user-name {
+    margin-right: 300px;
+    padding-left: 10px;
+}
+  
+.greeting-div {
+    color: black;
+}

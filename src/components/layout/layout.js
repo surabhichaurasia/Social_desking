@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import '../styles/layout.css'
+import '../../styles/layout.css'
 
 export class Layout extends Component {
     state = {
