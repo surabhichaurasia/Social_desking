@@ -9,28 +9,71 @@ export class Layout extends Component {
         active: null
     }
     componentDidMount() {
-        axios.get('https://mocki.io/v1/0415a38c-287b-469d-8734-d1541c49a7a2')
+        axios.get('http://localhost:8080/getCurrentFloorBooking', {
+            params: {
+                userId: this.props.userId, 
+                floorId: 1, 
+                buildingId: 1, 
+                date: new Date().toISOString().slice(0, 10)
+            }
+        })
         .then(res => {
             const data = res.data;
-            this.setState({data});
-            let temp = [], temp_mat = [];
-            for (let i = 0 ; i < data.layoutMatrix.length ; i++) {
-                if (data.layoutMatrix[i] === '(') {
-                    temp_mat.push(temp);
-                    temp = [];
+            console.log(data);
+            if (data.layoutMatrix.localeCompare(this.state.data.layoutMatrix)) {
+                this.setState({data});
+                let temp = [], temp_mat = [];
+                for (let i = 0 ; i < data.layoutMatrix.length ; i++) {
+                    if (data.layoutMatrix[i] === '(') {
+                        temp_mat.push(temp);
+                        temp = [];
+                    }
+                    else if (data.layoutMatrix[i] === '1')
+                    temp.push(1);
+                    else if (data.layoutMatrix[i] === '2')
+                    temp.push(2);
+                    else if (data.layoutMatrix[i] === '0')
+                    temp.push(0);
                 }
-                else if (data.layoutMatrix[i] === '1')
-                temp.push(1);
-                else if (data.layoutMatrix[i] === '2')
-                temp.push(2);
-                else if (data.layoutMatrix[i] === '0')
-                temp.push(0);
+                this.setState({mat: temp_mat});
             }
-            this.setState({mat: temp_mat});
         })
-        
+        console.log(this.props);
     }
 
+    componentDidUpdate() {
+        axios.get('http://localhost:8080/getCurrentFloorBooking', {
+            params: {
+                userId: this.props.userId, 
+                floorId: this.props.floorId, 
+                buildingId: this.props.buildingId, 
+                date: this.props.date
+            }
+        })
+        .then(res => {
+            const data = res.data;
+            console.log(data);
+            if (data.layoutMatrix.localeCompare(this.state.data.layoutMatrix)) {
+                this.setState({data});
+                let temp = [], temp_mat = [];
+                for (let i = 0 ; i < data.layoutMatrix.length ; i++) {
+                    if (data.layoutMatrix[i] === '(') {
+                        temp_mat.push(temp);
+                        temp = [];
+                    }
+                    else if (data.layoutMatrix[i] === '1')
+                    temp.push(1);
+                    else if (data.layoutMatrix[i] === '2')
+                    temp.push(2);
+                    else if (data.layoutMatrix[i] === '0')
+                    temp.push(0);
+                }
+                this.setState({mat: temp_mat});
+            }
+        })
+        console.log(this.state.active);
+        this.props.handleDesk(this.state.active);
+    }
     content(mat) {
         let con = []
         let temp = []
@@ -41,7 +84,7 @@ export class Layout extends Component {
                 temp = []
                 for (let j = 0 ; j < mat[i].length ; j++)
                 {
-                    k = i + '_' + j;
+                    k = (i-1) + ',' + j;
                     if (mat[i][j] === 1)
                     temp.push(<span style = {{background: this.myColor(k)}} onClick = {this.Event.bind(this)} key = {k} id = {k}></span>)
                     else if (mat[i][j] === 2)

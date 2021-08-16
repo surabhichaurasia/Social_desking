@@ -20,30 +20,39 @@ class Booking extends Component {
         
     }
 
+    handleCreateBooking(e) {
+        // console.log(e);
+        // console.log(this);
+        const customEvent = new CustomEvent('createBooking', {detail: this.state.details.userID} );
+        document.dispatchEvent(customEvent);
+        this.props.history.push('createBooking');
+    }
+
     render() {
         return (
             <div className="booking-container">
+                <button className = "local-btn" onClick = {(e) => this.handleCreateBooking(e)}>Create New Booking</button>
                 <div className="row">
-                {this.state.details.currentBooking ? this.state.details.currentBooking.map(bookings => {           
+                {this.state.details.bookings ? this.state.details.bookings.map(currbooking => {           
                     return(
                     <div className="col">
                         <div className="card">
-                            {bookings.date}
+                            Date: {currbooking.bDate}
                             <br/>
-                            {bookings.bookingId}
+                            Booking ID: {currbooking.bookingID}
                             <br/>
-                            {bookings.buildingId}
+                            Building ID: {currbooking.buildingId}
                             <br/>
-                            {bookings.floorId}
+                            Floor ID: {currbooking.floorId}
                             <br/>
-                            {bookings.location}
+                            Location: {currbooking.location}
                             <br/>
                             <button>Edit</button>
                             <button>Delete</button>
                         </div>
                     </div>
                     );
-                }) : ""}
+                }) : "No current bookings"}
                 </div>
             </div>      
         );
