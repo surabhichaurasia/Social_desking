@@ -58,7 +58,7 @@ export class Layout extends Component {
         .then(res => {
             const data = res.data;
             console.log(data);
-            if (data.layoutMatrix.localeCompare(this.state.data.layoutMatrix)) {
+            if (data.layoutMatrix.localeCompare(this.state.data.layoutMatrix) || data.available !== this.state.data.available) {
                 this.setState({data});
                 let temp = [], temp_mat = [];
                 for (let i = 0 ; i < data.layoutMatrix.length ; i++) {
@@ -83,6 +83,9 @@ export class Layout extends Component {
         let con = []
         let temp = []
         let k = '';
+        console.log(this.state.data);
+        if (this.state.data.available === 0)
+        con.push(<p>Floor is currently not available</p>);
         if (mat) {
             for (let i = 0 ; i < mat.length ; i++)
             {
@@ -123,7 +126,8 @@ export class Layout extends Component {
         return (
             <div>
                 {
-                    this.content(this.state.mat)
+                    this.state.data.available === 1 ? this.content(this.state.mat) : "Floor is currently not available."
+                    // this.content(this.state.mat)
                 }
             </div>
         )

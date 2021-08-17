@@ -52,7 +52,7 @@ class Booking extends Component {
                 <div>
                     <Header username={this.state.details.name}/>
                 </div>
-                <button className = "local-btn" onClick = {(e) => this.handleCreateBooking(e)}>Create New Booking</button>
+                <button className = "create-btn" onClick = {(e) => this.handleCreateBooking(e)}>Create New Booking</button>
                 <div className="row">
                 {this.state.details.bookings ? this.state.details.bookings.map(currbooking => {           
                     return(

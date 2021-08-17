@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 import Layout from '../layout/layout';
 import '../../styles/createBooking.css';
+import M from 'materialize-css';
 import axios from 'axios';
 class CreateBooking extends Component {
     constructor() {
@@ -57,6 +58,7 @@ class CreateBooking extends Component {
         }).then((res) => {
           console.log(res);
         });
+        M.toast({html: 'Booking created'})
         axios
           .get(
             `http://grads-coding-group-21.uc.r.appspot.com/user/${this.props.email}`

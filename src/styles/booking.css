@@ -1,17 +1,18 @@
 .booking-card {
     width: 200px;
     height: 180px;
-    background-color: cadetblue;
+    background-color: lightslategray;
     padding: 15px;
     margin: 10px;
     border-radius: 10px;
+    font-weight: bold;
 }
 
 .edit-btn {
     padding: 10px;
     border-radius: 15px;
-    background-color: darkblue;
-    border: none;
+    background-color: lightskyblue;
+    /* border: none; */
     margin-right: 10px;
     cursor: pointer;
 }
@@ -19,7 +20,16 @@
 .delete-btn {
     padding: 10px;
     border-radius: 15px;
-    background-color: darkred;
-    border: none;
+    background-color: lightcoral;
+    /* border: none; */
+    cursor: pointer;
+}
+
+.create-btn {
+    margin-top: 30px;
+    background-color: lightseagreen;
+    color: #000;
+    border-radius: 25px;
+    padding: 10px 30px;
     cursor: pointer;
 }
