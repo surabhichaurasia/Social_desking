@@ -28,9 +28,17 @@ class EditBooking extends Component {
         this.setState({
           [e.target.id]: e.target.value,
         });
-        const building = document.getElementById("building").value;
-        const floor = document.getElementById("floor").value;
-        const date = document.getElementById("date").value;
+        var building = document.getElementById("building").value;
+        if(building != this.props.match.params.buildingId)
+        {
+          this.props.match.params.buildingId = building;
+        }
+        var floor = document.getElementById("floor").value;
+        if(floor != this.props.match.params.floorId)
+        {
+          this.props.match.params.floorId = floor;
+        }
+        var date = document.getElementById("date").value;
         this.setState({
           buildingId: building,
           floorId: floor,
